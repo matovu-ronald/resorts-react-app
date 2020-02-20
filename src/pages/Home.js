@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Banner from "../components/Banner";
 import Services from '../components/Services';
 import Aux from '../hoc/Aux';
+import FeaturedRooms from "../components/FeaturedRooms";
 
 export const Home = () => {
   return (
@@ -19,6 +20,7 @@ export const Home = () => {
         </Banner>
       </Hero>
       <Services />
+      <FeaturedRooms />
     </Aux>
   );
 };
