@@ -2,10 +2,12 @@ import React from "react";
 import Hero from "../components/Hero";
 import { Link } from "react-router-dom";
 import Banner from "../components/Banner";
+import Services from '../components/Services';
+import Aux from '../hoc/Aux';
 
 export const Home = () => {
   return (
-    <div>
+    <Aux>
       <Hero>
         <Banner
           title="Luxurious Rooms"
@@ -16,7 +18,8 @@ export const Home = () => {
           </Link>
         </Banner>
       </Hero>
-    </div>
+      <Services />
+    </Aux>
   );
 };
 
