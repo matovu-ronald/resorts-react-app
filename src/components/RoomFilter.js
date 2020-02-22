@@ -27,16 +27,23 @@ const RoomFilter = ({ rooms }) => {
   types = ["all", ...types];
   // Map to jsx
   types = types.map((type, index) => {
-      return <option key={index} value={type}>{type}</option>;
-  })
+    return (
+      <option key={index} value={type}>
+        {type}
+      </option>
+    );
+  });
 
   //Get all the capacity
   let capacities = getUnique(rooms, "capacity");
   // Map to jsx
   capacities = capacities.map((capacity, index) => {
-      return <option key={index} value={capacity}>{capacity}</option> 
-  })
-
+    return (
+      <option key={index} value={capacity}>
+        {capacity}
+      </option>
+    );
+  });
 
   return (
     <section className="filter-container">
@@ -70,6 +77,21 @@ const RoomFilter = ({ rooms }) => {
           </select>
         </div>
         {/* Guests */}
+        {/* Room price */}
+        <div className="form-group">
+          <label htmlFor="price">Room price UGX {price} </label>
+          <input
+            type="range"
+            name="price"
+            min={minPrice}
+            id="price"
+            onChange={handleChange}
+            className="form-control"
+            max={maxPrice}
+            value={price}
+          />
+        </div>
+        {/* End Room price */}
       </form>
     </section>
   );
