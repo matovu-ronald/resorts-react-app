@@ -1,12 +1,10 @@
 import React, { Component } from "react";
 
-import Hero from "../components/Hero";
 import Banner from "../components/Banner";
 import { Link } from "react-router-dom";
 import { RoomContext } from "../Context";
 
 import defaulBcg from "../images/room-1.jpeg";
-import { FaWizardsOfTheCoast } from "react-icons/fa";
 import StyledHero from "../components/StyledHero";
 
 export default class SingleRoom extends Component {
