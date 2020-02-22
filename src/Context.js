@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import items from "./data";
+import Client from './Contentful';
 
 const RoomContext = React.createContext();
 
@@ -22,23 +23,35 @@ class RoomProvider extends Component {
 
   // getData
 
+  getData = async () => {
+    try {
+      let response = await Client.getEntries({
+        content_type: "beachResortRoom",
+        // order: 'fields.price'
+      });
+
+      let rooms = this.formatData(response.items);
+      let featuredRooms = rooms.filter(room => room.featured === true);
+
+      let maxPrice = Math.max(...rooms.map(room => room.price));
+      let maxSize = Math.max(...rooms.map(room => room.size));
+
+      this.setState(() => ({
+        featuredRooms,
+        rooms,
+        sortedRooms: rooms,
+        loading: false,
+        price: maxPrice,
+        maxPrice,
+        maxSize
+      }));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   componentDidMount() {
-    // this.getData
-    let rooms = this.formatData(items);
-    let featuredRooms = rooms.filter(room => room.featured === true);
-
-    let maxPrice = Math.max(...rooms.map(room => room.price));
-    let maxSize = Math.max(...rooms.map(room => room.size));
-
-    this.setState(() => ({
-      featuredRooms,
-      rooms,
-      sortedRooms: rooms,
-      loading: false,
-      price: maxPrice,
-      maxPrice,
-      maxSize
-    }));
+    this.getData();
   }
 
   formatData(items) {
