@@ -8,7 +8,16 @@ class RoomProvider extends Component {
     rooms: [],
     sortedRooms: [],
     featuredRooms: [],
-    loading: true
+    loading: true,
+    type: "all",
+    capacity: 1,
+    price: 0,
+    minPrice: 0,
+    maxPrice: 0,
+    minSize: 0,
+    maxSize: 0,
+    breakfast: false,
+    pets: false
   };
 
   // getData
@@ -17,11 +26,18 @@ class RoomProvider extends Component {
     // this.getData
     let rooms = this.formatData(items);
     let featuredRooms = rooms.filter(room => room.featured === true);
+
+    let maxPrice = Math.max(...rooms.map(room => room.price));
+    let maxSize = Math.max(...rooms.map(room => room.size));
+
     this.setState(() => ({
       featuredRooms,
       rooms,
       sortedRooms: rooms,
-      loading: false
+      loading: false,
+      price: maxPrice,
+      maxPrice,
+      maxSize
     }));
   }
 
@@ -41,12 +57,61 @@ class RoomProvider extends Component {
     return room;
   };
 
+  handleChange = event => {
+    const target = event.target;
+    const value = event.type === "checkbox" ? target.checked : target.value;
+    const name = event.target.name;
+
+    this.setState(
+      {
+        [name]: value
+      },
+      this.filterRooms
+    );
+  };
+
+  filterRooms = () => {
+    let {
+      rooms,
+      type,
+      capacity,
+      price,
+      minPrice,
+      maxPrice,
+      minSize,
+      maxSize,
+      breakfast,
+      pets
+    } = this.state;
+
+    // All ther rooms
+    let tempRooms = [...rooms];
+
+    // Transform values
+    capacity = parseInt(capacity);
+
+    // filter by type
+    if (type !== "all") {
+      tempRooms = tempRooms.filter(room => room.type === type);
+    }
+    
+    // Filter by capacity
+    if (capacity !== 1) {
+      tempRooms = tempRooms.filter(room => room.capacity === capacity)
+    }
+    // set state sortedRooms to filter rooms
+    this.setState({
+      sortedRooms: tempRooms
+    });
+  };
+
   render() {
     return (
       <RoomContext.Provider
         value={{
           ...this.state,
-          getRoom: this.getRoom
+          getRoom: this.getRoom,
+          handleChange: this.handleChange
         }}
       >
         {this.props.children}
