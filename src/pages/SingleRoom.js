@@ -46,6 +46,9 @@ export default class SingleRoom extends Component {
       images
     } = room;
 
+    // Desstructuring the images array to remove the displayed hero image
+    const [mainImg, ...otherImages] = images;
+
     return (
         <>
             <StyledHero img={images[0] || this.state.defaulBcg}>
@@ -55,7 +58,7 @@ export default class SingleRoom extends Component {
             </StyledHero>
             <section className="single-room">
                 <div className="single-room-images">
-                    {images.map((image, index) => {
+                    {otherImages.map((image, index) => {
                         return <img key={index} src={image} alt={name} />
                     })}
                 </div>
