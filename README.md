@@ -1,5 +1,7 @@
 # Resorts Application for displaying rooms built using [React](https://reactjs.org/) and [Contentful](https://www.contentful.com/) hosted with [Netlify](https://www.netlify.com/)
 
+## [Demo website](https://resorts-app.netlify.com/) for the project
+
 ## Running the project
 
 Clone the repository `git clone https://github.com/matovu-ronald/resorts-react-app.git`
